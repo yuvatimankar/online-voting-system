@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+       <div class="col">
+            {% if messages %}
+                <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            <ul>
+                {% for candidate in poll.candidate_set.all %}
+                  <li> {{ candidate.candidate_name }} - {{ candidate.votes }} </li>
+                {% endfor %}
+            </ul>
+       </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+
+{% comment %} 
+
+ Realtime feed of the ongoing voting process
+
+    {% for poll in polls %}
+        <li><a href="{% url 'polls:detail' poll.id %}">{{ poll }}</a></li>
+            <ul>
+                {% for candidate in poll.candidate_set.all %}
+                  <li> {{ candidate.candidate_name }} - {{ candidate.votes }} </li>
+                {% endfor %}
+            </ul>
+    {% endfor %}
+    
+{% endcomment %}

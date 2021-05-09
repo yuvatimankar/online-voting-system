@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h1 class="text-center"> Welcome to the Poll list </h1>
+      <div class="row ">
+            <div class="col-md-6 offset-sm-3">
+
+             {% if messages %}
+                {% for message in messages %}
+                    <div {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                      {{ message }}
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+                    {% if request.user.is_staff %}
+                      <a href="{% url 'polls:add' %}" class="btn btn-primary" style="margin-bottom: 5px">Add <i class="fas fa-plus"></i> </a>
+                    {% endif %}
+                <ul class="list-group">
+                    {% for poll in polls %}
+                    <li class="list-group-item">
+                         {% if request.user.is_staff %}
+                           <a href="{% url 'polls:detail' poll.id %}">{{ poll }}</a>
+                          <a href="{% url 'polls:edit_poll' poll.id %}" class="float-right"><i class="fas fa-pencil-alt">Edit</i><a/>
+                          {% else %}
+                          {{ poll }}
+                           <a href="{% url 'polls:detail' poll.id %} " class="float-right btn btn-primary">Vote</a>
+                         {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+      </div>
+</div>
+{% endblock content %}
