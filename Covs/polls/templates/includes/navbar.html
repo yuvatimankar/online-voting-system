@@ -1,0 +1,31 @@
+
+ <nav class="navbar navbar-expand-sm navbar-light" style="background-color: #2a9af5;">
+        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+            aria-expanded="false" aria-label="Toggle navigation"></button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href=" {% url 'polls:home' %} "><i class="fa fa-home" aria-hidden="true">Vote </i><span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item" style="color: black;">
+                <a class="nav-link" style="color: black;" href="{% url 'polls:list' %}">Polls</a>
+                  {% comment %} {% if request.user.is_authenticated %}
+                  <a class="nav-link" href="{% url 'polls:list' %}">Polls</a>
+                  {% else %}
+                  <a class="nav=item nav-link" href="{% url 'accounts:login' %}">Polls</a>
+                  {% endif %}
+                  {% endcomment %}
+                </li>
+            </ul>
+ 
+                 <a class="nav=item nav-link" style="color: black;" href="{% url 'polls:results' %}">Results</a>
+            </div>
+            <div class="navbar-nav ml-auto">
+                {% if request.user.is_authenticated %}
+                <a class="nav=item nav-link" style="color: black;" href="{% url 'accounts:logout' %}">Logout</a>
+                {% else %}
+                <a class="nav=item nav-link" style="color: black;" href="{% url 'accounts:login' %}">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav> 

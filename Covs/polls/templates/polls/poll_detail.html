@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if messages %}
+    <ul class="messages">
+    {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}{{poll}}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+<h2>Poll Detail Page</h2>
+
+{{poll}}
+
+<form action="{% url 'polls:vote' poll.id%}" method="post">
+ {% csrf_token %}
+ {% for candidate in poll.candidate_set.all %}
+ 
+ <input type="radio"
+        name="candidate"
+        id="candidate{{forloop.counter }}"
+        value= "{{ candidate.id }}"/>
+
+ <lable for="candidate{{ forloop.counter }}">{{ candidate.candidate_name }}</lable>
+ <br/>
+
+ {% endfor %}
+
+ <input type="submit" value="Vote" {% if not user_can_vote %}disabled{% endif %} />
+
+</form>
+ 
+{% endblock content %}
+

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="container">
+   <h3 class="text-center">Edit Poll</h3>
+   <div class="row">
+     <div class="col-sm-6 offset-sm-3">
+       <form action="" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+         <div class="">
+          {{ field.errors }}
+          {{ field.label_tag }}
+          {{ field }}
+         </div>
+         {% endfor %}
+       <input type="submit" value="submit" class="btn btn-primary">
+       <a href="{% url 'polls:add_candidate' poll.id %}"  class="btn btn-warning">Add Candidate</a>
+       <a href="{% url 'polls:poll_confirm_delete' poll.id %}"
+           class="btn btn-danger">
+           <i class="far fa-trash-alt"></i>Delete
+        </a>
+       </form>
+
+       <h3 class="text-center">Candidate</h3>
+       {% for candidate in poll.candidate_set.all %}
+       <p><a href="{% url 'polls:edit_candidate' candidate.id %}" class="float-right"><i class="fas fa-pencil-alt">Edit</i><a/>{{candidate.candidate_name}}</p>
+       {% endfor %}
+
+     </div>
+   </div>
+ </div>
+{% endblock content %}

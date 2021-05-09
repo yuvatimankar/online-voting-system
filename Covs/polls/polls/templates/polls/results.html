@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h1 class="text-center"> The Race Continues WHO becomes What</h1>
+    <h3 class="text-center"> Its the Comrades Voices </h3>
+      <div class="row ">
+            <div class="col-md-6 offset-sm-3">
+
+             {% if messages %}
+                {% for message in messages %}
+                    <div {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                      {{ message }}
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+                <ul class="list-group text-center">
+                     {% for poll in polls %}
+                        <li class="list-group-item">
+                            <p style="color:rgb(21, 166, 233);">{{ poll }}</p> <br>
+                            {% for candidate in poll.candidate_set.all %}
+                                {{ candidate.candidate_name }} = {{ candidate.votes }}<br>
+                            {% endfor %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+      </div>
+</div>
+{% endblock content %}
